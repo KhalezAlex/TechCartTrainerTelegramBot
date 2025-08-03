@@ -1,1 +1,3 @@
 /gateway/src/main/resources/application.yaml
+/dispatchers/gateway_dispatcher/src/main/resources/application.yml
+/gateway/src/main/resources/application.yml
