@@ -14,8 +14,15 @@
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
+        <telegrambots-spring-boot-starter.version>6.1.0</telegrambots-spring-boot-starter.version>
     </properties>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>org.telegram</groupId>
+            <artifactId>telegrambots-spring-boot-starter</artifactId>
+            <version>${telegrambots-spring-boot-starter.version}</version>
+        </dependency>
+    </dependencies>
 
 </project>

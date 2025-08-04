@@ -12,6 +12,7 @@
         <option value="$PROJECT_DIR$/department/pom.xml" />
         <option value="$PROJECT_DIR$/employee/pom.xml" />
         <option value="$PROJECT_DIR$/dispatchers/gateway_dispatcher/pom.xml" />
+        <option value="$PROJECT_DIR$/commons/JPA_commons/pom.xml" />
       </list>
     </option>
   </component>

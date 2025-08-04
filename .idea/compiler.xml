@@ -6,6 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="JPA_commons" />
         <module name="rabbitmq_commons" />
         <module name="gateway_dispatcher" />
         <module name="dispatchers" />
