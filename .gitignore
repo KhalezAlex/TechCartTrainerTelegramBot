@@ -1,3 +1,5 @@
 /gateway/src/main/resources/application.yaml
 /dispatchers/gateway_dispatcher/src/main/resources/application.yml
 /gateway/src/main/resources/application.yml
+/commons/telegram_mvc/src/main/resources/application.yml
+/guest/guest_node/src/main/resources/application.yml

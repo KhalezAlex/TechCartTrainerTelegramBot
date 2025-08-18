@@ -1,4 +1,4 @@
-package org.klozevitz.components.io;
+package org.klozevitz.components.io.updateProducer;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -6,6 +6,8 @@ import org.klozevitz.RabbitQueue;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.Update;
+
+import static org.klozevitz.RabbitQueue.GATEWAY_QUEUE;
 
 @Service
 @Log4j
@@ -20,6 +22,6 @@ public class UpdateProducer implements IUpdateProducer {
         var message = String.format("gateway||UpdateProducer: сообщение от пользователя %s: ",
                 "СЧИТАТЬ ИМЯ ПОЛЬЗОВАТЕЛЯ и сообщение");
         log.debug(message);
-        rabbitTemplate.convertAndSend(RabbitQueue.GATEWAY_QUEUE.queue(), update);
+        rabbitTemplate.convertAndSend(GATEWAY_QUEUE, update);
     }
 }

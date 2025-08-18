@@ -1,6 +1,6 @@
 package org.klozevitz.enities.users.enums.views;
 
-public enum CompanyView {
+public enum CompanyView implements IBotView {
     // TODO проверить
     NULL_COMPANY_STATE_NOTIFICATION_VIEW,
     UNREGISTERED_WELCOME_VIEW,

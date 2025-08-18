@@ -7,14 +7,19 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="JPA_commons" />
-        <module name="rabbitmq_commons" />
+        <module name="telegram_commons" />
         <module name="gateway_dispatcher" />
         <module name="dispatchers" />
         <module name="Test_Menu_Telegram-bot" />
-        <module name="company" />
-        <module name="department" />
+        <module name="dispatcher_commons" />
         <module name="employee" />
+        <module name="rabbitmq_commons" />
+        <module name="company" />
+        <module name="guest" />
+        <module name="telegram_mvc" />
+        <module name="department" />
         <module name="gateway" />
+        <module name="guest_node" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -26,6 +31,8 @@
       <module name="Test_Menu_Telegram-bot" options="-parameters" />
       <module name="gateway" options="-parameters" />
       <module name="gateway_dispatcher" options="-parameters" />
+      <module name="guest" options="" />
+      <module name="guest_node" options="-parameters" />
     </option>
   </component>
 </project>

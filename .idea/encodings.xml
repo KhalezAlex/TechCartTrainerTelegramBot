@@ -6,6 +6,8 @@
     <file url="file://$PROJECT_DIR$/dispatchers/gateway_dispatcher/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/dispatchers/gateway_dispatcher/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/gateway/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/guest/guest_node/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/guest/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
   </component>
 </project>

@@ -1,0 +1,34 @@
+version: "3.9"
+services:
+  rabbitmq:
+    image: rabbitmq:3.11.0-management
+    hostname: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=klozevitz
+      - RABBITMQ_DEFAULT_PASS=ItsMyLife29101012
+      - RABBITMQ_DEFAULT_VHOST=/
+    healthcheck:
+      test: rabbitmqctl status
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  rabbitmq-setup:
+    image: rabbitmq:3.11.0-management
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    restart: on-failure
+    entrypoint: |
+      bash -c '
+      until rabbitmqctl -n rabbit@rabbitmq ping; do sleep 1; done
+      rabbitmqctl -n rabbit@rabbitmq set_user_tags klozevitz administrator
+      rabbitmqctl -n rabbit@rabbitmq set_permissions -p / klozevitz ".*" ".*" ".*"
+      '
+volumes:
+  rabbitmq_data:

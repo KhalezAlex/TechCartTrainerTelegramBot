@@ -13,6 +13,11 @@
         <option value="$PROJECT_DIR$/employee/pom.xml" />
         <option value="$PROJECT_DIR$/dispatchers/gateway_dispatcher/pom.xml" />
         <option value="$PROJECT_DIR$/commons/JPA_commons/pom.xml" />
+        <option value="$PROJECT_DIR$/commons/telegram_commons/pom.xml" />
+        <option value="$PROJECT_DIR$/commons/dispatcher_commons/pom.xml" />
+        <option value="$PROJECT_DIR$/commons/telegram_mvc/pom.xml" />
+        <option value="$PROJECT_DIR$/guest/pom.xml" />
+        <option value="$PROJECT_DIR$/guest/guest_node/pom.xml" />
       </list>
     </option>
   </component>

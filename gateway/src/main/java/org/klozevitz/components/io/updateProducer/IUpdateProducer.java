@@ -1,4 +1,4 @@
-package org.klozevitz.components.io;
+package org.klozevitz.components.io.updateProducer;
 
 import org.telegram.telegrambots.meta.api.objects.Update;
 

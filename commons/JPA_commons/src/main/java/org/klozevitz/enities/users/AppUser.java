@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 @Table(name = "app_user")
 public class AppUser {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "telegram_user_id")
     private Long telegramUserId;
     @CreationTimestamp
@@ -25,7 +24,5 @@ public class AppUser {
     @Column(name = "username")
     private String username;
     @Enumerated(EnumType.STRING)
-    @Column(name = "current_role")
-    private Role currentRole;
-
+    private Role role;
 }

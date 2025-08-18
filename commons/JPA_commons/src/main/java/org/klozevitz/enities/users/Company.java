@@ -2,10 +2,9 @@ package org.klozevitz.enities.users;
 
 import lombok.*;
 import org.klozevitz.enities.BaseEntity;
+import org.klozevitz.enities.users.enums.views.CompanyView;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Getter
 @Setter
@@ -20,5 +19,7 @@ public class Company extends BaseEntity {
     @Column(name = "email")
     private String email;
     @Column(name = "current_view")
-
+    private CompanyView current_view;
+    @OneToOne
+    private AppUser appUser;
 }
