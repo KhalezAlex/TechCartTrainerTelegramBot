@@ -8,7 +8,12 @@ import org.klozevitz.components.io.historyManager.IHistoryManager;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
+import org.telegram.telegrambots.meta.api.methods.botapimethods.BotApiMethodMessage;
+import org.telegram.telegrambots.meta.api.methods.polls.SendPoll;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
+import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -47,17 +52,35 @@ public class GatewayTgBotComponent extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
         log.debug("получено сообщение!!!" + "telegramUserId");
         updateController.processUpdate(update);
-        historyManager.deleteUserMessage(update);
+//        historyManager.deleteUserMessage(update);
+//        TODO: вернуть, если не получится!!! НАДО СОХРАНЯТЬ СООБЩЕНИЕ ПОСЛЕ СОХРАНЕНИЯ ПОЛЬЗОВАТЕЛЯ- В ДИСПЕТЧЕРЕ!!!
+//        historyManager.saveUserMessageToDelete(update);
     }
 
-    public Message sendAnswerMessage(SendMessage sendMessage) {
-        if (sendMessage != null) {
+    public Message sendAnswerMessage(BotApiMethodMessage messageToSend) {
+        if (messageToSend != null) {
             try {
-                return execute(sendMessage);
+                return execute(messageToSend);
             } catch (TelegramApiException e) {
                 log.error(e);
             }
         }
         return null;
+    }
+
+    public void deleteBuggedMessage(DeleteMessage deleteMessage) {
+        try {
+            execute(deleteMessage);
+        } catch (TelegramApiException e) {
+            log.error(e);
+        }
+    }
+
+    private Integer messageId(Update update) {
+        return update.hasMessage()
+                ? update.getMessage().getMessageId()
+                : update.hasCallbackQuery()
+                ? update.getCallbackQuery().getMessage().getMessageId()
+                : -1;
     }
 }

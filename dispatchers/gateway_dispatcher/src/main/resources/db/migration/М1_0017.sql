@@ -1,0 +1,2 @@
+ALTER TABLE test_result
+ADD COLUMN date TIMESTAMP;

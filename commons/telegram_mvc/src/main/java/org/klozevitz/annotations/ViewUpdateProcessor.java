@@ -1,6 +1,5 @@
 package org.klozevitz.annotations;
 
-import org.klozevitz.annotationParameters.UpdateType;
 import org.springframework.stereotype.Component;
 
 import java.lang.annotation.ElementType;
@@ -13,6 +12,5 @@ import java.lang.annotation.Target;
 @Component
 public @interface ViewUpdateProcessor {
     String view();
-    UpdateType updateType();
     String role();
 }

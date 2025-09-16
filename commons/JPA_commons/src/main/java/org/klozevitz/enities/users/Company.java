@@ -19,7 +19,8 @@ public class Company extends BaseEntity {
     @Column(name = "email")
     private String email;
     @Column(name = "current_view")
-    private CompanyView current_view;
+    private String currentView;
     @OneToOne
+    @JoinColumn(name = "app_user", referencedColumnName = "telegram_user_id")
     private AppUser appUser;
 }

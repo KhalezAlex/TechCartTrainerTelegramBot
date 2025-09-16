@@ -1,0 +1,2 @@
+ALTER TABLE test_question
+ADD COLUMN name VARCHAR(100) NOT NULL;

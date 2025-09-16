@@ -1,5 +1,7 @@
 package org.klozevitz.updateProcessor;
 
+import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
+import org.telegram.telegrambots.meta.api.methods.polls.SendPoll;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
@@ -24,7 +26,17 @@ public abstract class AbstractUpdateProcessor implements UpdateProcessor {
                 update.getCallbackQuery().getData();
     }
 
-    protected ArrayList<SendMessage> answerAsList(SendMessage answer) {
+    protected ArrayList<BotApiMethod<?>> answerAsList(SendMessage answer) {
+        return new ArrayList<>() {{
+            add(answer);
+            add(SendMessage.builder()
+                    .text("")
+                    .chatId(answer.getChatId())
+                    .build());
+        }};
+    }
+
+    protected ArrayList<BotApiMethod<?>> answerAsList(SendPoll answer) {
         return new ArrayList<>() {{
             add(answer);
             add(SendMessage.builder()

@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.klozevitz.components.UpdateController;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
+import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
+import org.telegram.telegrambots.meta.api.methods.botapimethods.BotApiMethodMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
 import static org.klozevitz.RabbitQueue.ANSWER_QUEUE;
@@ -15,7 +17,7 @@ public class AnswerConsumer implements IAnswerConsumer {
 
     @Override
     @RabbitListener(queues = ANSWER_QUEUE)
-    public void consumeAnswer(SendMessage answer) {
+    public void consumeAnswer(BotApiMethodMessage answer) {
         updateController.setView(answer);
     }
 }

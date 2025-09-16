@@ -23,6 +23,5 @@ public class AppUser {
     private LocalDateTime firstLoginDate;
     @Column(name = "username")
     private String username;
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    private String role;
 }

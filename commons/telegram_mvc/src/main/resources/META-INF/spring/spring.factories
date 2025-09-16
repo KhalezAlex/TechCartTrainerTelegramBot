@@ -1,2 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-    org.klozevitz.util.BasicUpdateProcessorAnnotationProcessor
+    org.klozevitz.annotations.processors.ViewDispatcherPostProcessor
+    org.klozevitz.annotations.processors.TelegramViewPostProcessor

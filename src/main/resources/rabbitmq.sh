@@ -39,11 +39,12 @@ docker exec test_menu_rabbitmq rabbitmqctl list_permissions -p /
 # Создаем очереди с проверкой ошибок
 declare -a queues=(
   "gateway_queue"
-  "guest_update_queue" "guest_command_update_queue" "guest_text_update_queue" "guest_callback_update_queue"
-  "company_update_queue" "company_command_update_queue" "company_text_update_queue" "company_callback_update_queue"
-  "department_update_queue" "department_command_update_queue" "department_text_update_queue" "department_callback_update_queue" "department_document_update_queue"
-  "employee_update_queue" "employee_command_update_queue" "employee_text_update_queue" "employee_callback_update_queue"
+  "guest_update_queue"
+  "company_update_queue"
+  "department_update_queue"
+  "employee_update_queue"
   "answer_message_queue"
+  "deletion_queue"
 )
 
 for queue in "${queues[@]}"; do

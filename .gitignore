@@ -3,3 +3,6 @@
 /gateway/src/main/resources/application.yml
 /commons/telegram_mvc/src/main/resources/application.yml
 /guest/guest_node/src/main/resources/application.yml
+/company/company_node/src/main/resources/application.yml
+/department/department_node/src/main/resources/application.yml
+/employee/employee_node/src/main/resources/application.yml

@@ -3,16 +3,17 @@ package org.klozevitz.components.io.historyManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.klozevitz.components.MessageSentService;
-import org.klozevitz.enities.users.MessageSent;
 import org.klozevitz.telegram_bot_component.GatewayTgBotComponent;
 import org.springframework.stereotype.Service;
+import org.telegram.telegrambots.meta.api.methods.botapimethods.BotApiMethodMessage;
+import org.telegram.telegrambots.meta.api.methods.polls.SendPoll;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import javax.transaction.Transactional;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
@@ -28,52 +29,54 @@ public class HistoryManager implements IHistoryManager {
     }
 
     @Override
-    public void deleteUserMessage(Update update) {
-        var messageId = messageId(update);
-        var telegramUserId = telegramUserId(update);
-        var deleteMessage = deleteMessage(telegramUserId, messageId);
-
-        try {
-            bot.execute(deleteMessage);
-        } catch (TelegramApiException e) {
-            var errorMessage = String
-                    .format(
-                            "Сообщение с id \"%d\" в чате \"%d\" не удалось удалить",
-                            messageId,
-                            telegramUserId
-                    );
-            log.error(errorMessage);
-        }
+    public void deleteBotMessages(ArrayList<Integer> messageIdsToDelete, long telegramUserId) {
+        deleteMessage(telegramUserId, messageIdsToDelete.get(1) - 1);
+        messageIdsToDelete.forEach(id -> deleteMessage(telegramUserId, id));
     }
 
     @Override
-    public void deleteBotMessages(List<MessageSent> messagesSent) {
-        messagesSent.forEach(this::deleteBotMessage);
-    }
-
-    private void deleteBotMessage(MessageSent message) {
-        var messageId = message.getMessageId();
-        var sendMessage = message.getSendMessage();
-        if (messageId != null && sendMessage != null) {
-            var deleteMessage = deleteMessage(
-                    Long.parseLong(sendMessage.getChatId()),
-                    messageId);
-            try {
-                bot.execute(deleteMessage);
-            } catch (TelegramApiException ignored) {
-                log.error("Уже удалено!!!");
-            }
+    public void deleteMessage(long telegramUserId, int messageId) {
+        var deleteMessage = DeleteMessage.builder()
+                .chatId(telegramUserId)
+                .messageId(messageId)
+                .build();
+        try {
+            bot.execute(deleteMessage);
+        } catch (TelegramApiException ignored) {
+            log.error("Уже удалено!!!");
         }
+
     }
 
     @Override
     @Transactional
-    public void saveMessageToDelete(Integer messageId, SendMessage sendMessage) {
-        if (sendMessage.getText().isEmpty()) {
-            messageSentService.saveTerminate(Long.parseLong(sendMessage.getChatId()));
+    public void saveBotMessageToDelete(Integer messageId, BotApiMethodMessage messageToDelete) {
+        var chatId = chatId(messageToDelete);
+        if (messageToDelete instanceof SendMessage &&
+                ((SendMessage)messageToDelete).getText().isEmpty()) {
+            messageSentService.saveTerminate(chatId);
         } else {
-            messageSentService.save(messageId, sendMessage, Long.parseLong(sendMessage.getChatId()));
+            messageSentService.saveBotMessage(messageId, messageToDelete, chatId);
         }
+    }
+
+    @Override
+    public void saveUserMessageToDelete(Update update) {
+        var messageId = messageId(update);
+        var telegramUserId = telegramUserId(update);
+
+        messageSentService.saveUserMessage(messageId, telegramUserId);
+    }
+
+    private long chatId(BotApiMethodMessage message) {
+        if (message instanceof SendMessage) {
+            return Long.parseLong(((SendMessage) message).getChatId());
+        }
+        if (message instanceof SendPoll) {
+            return Long.parseLong(((SendPoll) message).getChatId());
+        }
+
+        return -1;
     }
 
     private Integer messageId(Update update) {
@@ -93,12 +96,5 @@ public class HistoryManager implements IHistoryManager {
                                                 null
                 )
                 .orElseThrow(() -> new IllegalArgumentException("Update пустой"));
-    }
-
-    private DeleteMessage deleteMessage(long telegramUserId, int messageId) {
-        return DeleteMessage.builder()
-                .chatId(telegramUserId)
-                .messageId(messageId)
-                .build();
     }
 }

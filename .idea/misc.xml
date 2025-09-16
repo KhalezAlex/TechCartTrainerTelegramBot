@@ -18,6 +18,10 @@
         <option value="$PROJECT_DIR$/commons/telegram_mvc/pom.xml" />
         <option value="$PROJECT_DIR$/guest/pom.xml" />
         <option value="$PROJECT_DIR$/guest/guest_node/pom.xml" />
+        <option value="$PROJECT_DIR$/commons/util_commons/pom.xml" />
+        <option value="$PROJECT_DIR$/company/company_node/pom.xml" />
+        <option value="$PROJECT_DIR$/department/department_node/pom.xml" />
+        <option value="$PROJECT_DIR$/employee/employee_node/pom.xml" />
       </list>
     </option>
   </component>
