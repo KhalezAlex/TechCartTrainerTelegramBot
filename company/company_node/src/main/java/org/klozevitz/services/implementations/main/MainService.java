@@ -78,7 +78,7 @@ public class MainService extends AbstractViewDispatcher {
     }
 
     private void sendAnswer(ArrayList<BotApiMethod<?>> answer) {
-        for (BotApiMethod botApiMethod : answer) {
+        for (BotApiMethod<?> botApiMethod : answer) {
             answerProducer.produceAnswer(botApiMethod);
         }
     }
